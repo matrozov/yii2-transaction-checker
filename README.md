@@ -1,4 +1,4 @@
-# Transaction checker
+# Yii2 Transaction checker
 
 Component for checking the closing of transactions at the time of completion of work on a request.
 

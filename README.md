@@ -26,7 +26,7 @@ Specify the component and point it to the bootstrap section of the framework.
 'bootstrap' => ['transactionChecker'],
 'components' => [
     'transactionChecker' => [
-        'class' => 'matrozov/yii2-transaction-checker/TransactionChecker',
+        'class' => 'matrozov\yii2-transaction-checker\TransactionChecker',
     ],
 ],
 ```

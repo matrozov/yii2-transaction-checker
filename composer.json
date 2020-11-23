@@ -1,0 +1,27 @@
+{
+    "name": "matrozov/yii2-transaction-checker",
+    "description": "Component for checking the closing of transactions at the time of completion of work on a request",
+    "keywords": ["yii2", "transaction"],
+    "homepage": "https://github.com/matrozov/yii2-transaction-checker",
+    "type": "yii2-extension",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Oleg Matrozov",
+            "email": "oleg.matrozov@gmail.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/matrozov/yii2-transaction-checker/issues",
+        "source": "https://github.com/matrozov/yii2-transaction-checker"
+    },
+    "require": {
+        "php": "^5.6|^7",
+        "yiisoft/yii2": "~2.0.14"
+    },
+    "autoload": {
+        "psr-4": {
+            "matrozov\\yii2_transaction_checker\\": "src"
+        }
+    }
+}

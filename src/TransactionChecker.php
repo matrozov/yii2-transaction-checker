@@ -71,6 +71,10 @@ class TransactionChecker extends Component
         $connectionErrorIds = [];
 
         foreach ($this->connections as $connectionId) {
+            if (!Yii::$app->has($connectionId, true)) {
+                continue;
+            }
+
             /** @var Connection $db */
             $db = Yii::$app->get($connectionId);
 

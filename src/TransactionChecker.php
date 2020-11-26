@@ -1,6 +1,6 @@
 <?php
 
-namespace chemexsol\common\components;
+namespace matrozov\yii2_transaction_checker;
 
 use Yii;
 use yii\base\Application;

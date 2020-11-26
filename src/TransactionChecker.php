@@ -80,7 +80,7 @@ class TransactionChecker extends Component
 
             $transaction = $db->getTransaction();
 
-            if (!$db || !$transaction) {
+            if (!$transaction) {
                 continue;
             }
 

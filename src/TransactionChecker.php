@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Application;
 use yii\base\Component;
 use yii\base\ErrorException;
+use yii\base\Event;
 use yii\base\InvalidConfigException;
 use yii\db\Connection;
 
@@ -39,6 +40,7 @@ class TransactionChecker extends Component
      * @inheritDoc
      *
      * @throws InvalidConfigException
+     * @throws ErrorException
      */
     public function init()
     {
@@ -46,7 +48,12 @@ class TransactionChecker extends Component
 
         Yii::$app->on(Application::EVENT_AFTER_REQUEST, [$this, 'checkTransaction'], 'Application::EVENT_AFTER_REQUEST');
 
-        register_shutdown_function([$this, 'checkTransaction'], 'register_shutdown_function');
+        register_shutdown_function(function() {
+            $event = new Event();
+            $event->data = 'register_shutdown_function';
+
+            $this->checkTransaction($event);
+        });
 
         foreach ($this->extendedEvents as $componentId => $eventNames) {
             /** @var Component $component */
@@ -61,12 +68,12 @@ class TransactionChecker extends Component
     }
 
     /**
-     * @param string $eventName
+     * @param Event $event
      *
      * @throws ErrorException
      * @throws InvalidConfigException
      */
-    public function checkTransaction($eventName)
+    public function checkTransaction(Event $event)
     {
         $connectionErrorIds = [];
 
@@ -91,7 +98,7 @@ class TransactionChecker extends Component
 
         if (!empty($connectionErrorIds)) {
             $connectionErrorIds = implode(', ', $connectionErrorIds);
-            throw new ErrorException("Trigger \"$eventName\": Transaction in \"$connectionErrorIds\" does\'t closed!");
+            throw new ErrorException(sprintf('Trigger "%s": Transaction in "%s" does\'t closed!', $event->data, $connectionErrorIds));
         }
     }
 }
